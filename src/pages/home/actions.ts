@@ -5,7 +5,6 @@ export const fetchHomeInfo = (params: any) => {
   Api.fetchHomeInfo(params)
     .then(res => {
       if (res.code === 0) {
-        message.success('获取数据')
       } else {
         message.error(res?.message);
       }
