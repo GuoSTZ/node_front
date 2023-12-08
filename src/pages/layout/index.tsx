@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import * as actions from './actions';
-import { Button } from 'antd';
+import Layout from '@/components/Layout';
+import { fetchUserInfo, fetchLogout } from '@/common/actions';
+import { Outlet, Navigate, useNavigate } from 'react-router-dom';
+import { routes } from '@/routes';
 
-export interface LayoutProps {
 
-}
-
-const Layout = (props: React.PropsWithChildren<LayoutProps>) => {
-  const { children } = props;
+const LayoutApp = () => {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({} as {
     username: string;
     id: number;
@@ -15,21 +14,33 @@ const Layout = (props: React.PropsWithChildren<LayoutProps>) => {
   });
 
   useEffect(() => {
-    actions.fetchUserInfo({}, (data: any) => {
+    fetchUserInfo({}, (data: any) => {
       setUserInfo(data);
     });
   }, [])
 
+  const transferRoutesToMenu = (data: any[]) => {
+    return data.map(item => {
+      return {
+        ...item,
+        label: item.name,
+        key: item.path,
+        onclick
+      }
+    })
+  }
+
   return (
-    <div>
-      <header>
-        <div>用户：{userInfo.username}</div>
-        <div>用户角色：{userInfo.role}</div>
-        <div><Button onClick={() => actions.fetchLogout()}>登出</Button></div>
-      </header>
-      {children}
-    </div>
+    <Layout 
+      menu={{
+        onClick: ({key}) => navigate(`/app/${key}`),
+        items: transferRoutesToMenu(routes)
+      }} 
+      userInfo={userInfo} 
+      logout={fetchLogout}>
+      <Outlet />
+    </Layout>
   )
 }
 
-export default Layout;
+export default LayoutApp;

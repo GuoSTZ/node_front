@@ -1,10 +1,9 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
-import routes from './routes';
-
+import appRoutes from './routes';
 
 const App = () => {
-  const View = useRoutes(routes);
+  const View = useRoutes(appRoutes);
   return View
 }
 
