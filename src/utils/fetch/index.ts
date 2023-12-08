@@ -41,7 +41,6 @@ instance.interceptors.response.use(
         res?.data?.url && (window.location.href = res.data.url);
         window.localStorage.clear();
         const cookieKeys = document.cookie.match(/[^ =;]+(?=\=)/g);
-        console.log(document.cookie, cookieKeys, '=====cook')
         if (cookieKeys) {
           for (let i = cookieKeys.length; i--;)
             document.cookie = cookieKeys[i] + '=0;expires=' + new Date(0).toUTCString()
