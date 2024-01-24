@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@/components/Layout';
-import { fetchUserInfo, fetchLogout } from '@/common/actions';
+import { fetchUserInfo, fetchWholeInfo, fetchLogout } from '@/common/actions';
 import { Outlet, Navigate, useNavigate } from 'react-router-dom';
 import { routes } from '@/routes';
 
@@ -14,9 +14,9 @@ const LayoutApp = () => {
   });
 
   useEffect(() => {
-    fetchUserInfo({}, (data: any) => {
-      setUserInfo(data);
-    });
+    fetchWholeInfo({}, (data: any) => {
+      setUserInfo(data.user);
+    })
   }, [])
 
   const transferRoutesToMenu = (data: any[]) => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Tabs, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import dayjs from 'dayjs';
 import * as actions from './actions';
 
 interface DataType {
@@ -29,46 +30,68 @@ const columns: ColumnsType<DataType> = [
     dataIndex: 'time',
     key: 'time',
     width: 100,
+    render: EmptyShow,
   },
   {
     title: '优先级',
     dataIndex: 'priority',
     key: 'priority',
     width: 80,
-    render: (text: keyof typeof PRIORITY_COLOR) => <Tag color={PRIORITY_COLOR[text]} >{text}</Tag>
+    render: (text: keyof typeof PRIORITY_COLOR) => (
+      text
+        ? <Tag color={PRIORITY_COLOR[text]}>{text}</Tag>
+        : "-"
+    ),
   },
   {
     title: '负责人',
     dataIndex: 'assignee',
     key: 'assignee',
     width: 80,
+    render: EmptyShow,
   },
   {
     title: '完成日期',
     dataIndex: 'completionDate',
     key: 'completionDate',
     width: 150,
+    render: TimeShow,
   },
   {
     title: '完成状态',
     dataIndex: 'completionStatus',
     key: 'completionStatus',
     width: 80,
+    render: EmptyShow,
   },
   {
     title: '预估工时',
     dataIndex: 'estimatedHours',
     key: 'estimatedHours',
     width: 80,
+    render: EmptyShow,
   },
   {
     title: '备注',
     dataIndex: 'notes',
     key: 'notes',
     width: 200,
-    ellipsis: true
+    ellipsis: true,
+    render: EmptyShow,
   },
 ];
+
+function EmptyShow(text: string|number) {
+  if(['number', 'string'].includes(typeof text)) {
+    return text;
+  } else {
+    return "-";
+  }
+}
+
+function TimeShow(text: number) {
+  return text ? dayjs(text).format("YYYY-MM-DD") : "-";
+}
 
 const App: React.FC = () => {
   const [page, setPage] = useState({

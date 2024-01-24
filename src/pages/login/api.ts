@@ -14,3 +14,6 @@ export const fetchLogin = (params: object = {}, config: AxiosRequestConfig = def
 
 export const fetchRegister = (params: object = {}, config: AxiosRequestConfig = defaultConfig) =>
   FetchUtils.fetchPost(`http://localhost:3000/v1/user/register`, params, config);
+
+export const fetchPinCode = (params: object = {}, config: AxiosRequestConfig = defaultConfig) =>
+  FetchUtils.fetchPost(`http://localhost:3000/v1/user/pinCode`, params, config);

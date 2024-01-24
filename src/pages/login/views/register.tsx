@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
 import { useAtom } from 'jotai';
+import { useNavigate } from 'react-router-dom';
 import { encryptionConfigAtom } from '../atom';
 import * as actions from '../actions';
 import { encrypt } from '@/utils/encrypt';
+import './index.less';
 
 type FieldType = {
   username?: string;
@@ -11,7 +13,9 @@ type FieldType = {
 };
 
 export default () => {
+  actions.useEncryptionConfigAtom();
   const [encryptionConfig] = useAtom(encryptionConfigAtom);
+  const navigate = useNavigate();
 
   const onRegister = async (values: any) => {
     values.password = encrypt(values.password, encryptionConfig.publicKey);
@@ -48,6 +52,10 @@ export default () => {
       >
         <Input.Password autoComplete='new-password' />
       </Form.Item>
+
+      <div className='register-tip'>
+        <a onClick={() => navigate('/login')}>已有用户，前往登录</a>
+      </div>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">

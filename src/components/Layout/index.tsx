@@ -45,7 +45,7 @@ const Layout = (props: React.PropsWithChildren<LayoutProps>) => {
         <div className={styles.userInfo}>
           <Dropdown menu={{ items: DropdownItems }}>
             <div>
-              <Avatar src={<img src={'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'} alt="avatar" />} />
+              <Avatar src={<img src={"/assets/user.svg"} alt="avatar" />} />
               {userInfo.username}
             </div>
           </Dropdown>

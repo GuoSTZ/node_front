@@ -11,3 +11,6 @@ export const fetchUserInfo = (params: object = {}, config: AxiosRequestConfig = 
 
 export const fetchLogout = (params: object = {}, config: AxiosRequestConfig = defaultConfig) =>
   FetchUtils.fetchPost(`http://localhost:3000/v1/user/logout`, params, config);
+
+export const fetchWholeInfo = (params: object = {}, config: AxiosRequestConfig = defaultConfig) =>
+FetchUtils.fetchPost(`http://localhost:3000/v1/whole/info`, params, config);

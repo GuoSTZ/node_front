@@ -13,6 +13,18 @@ export const fetchUserInfo = (params: any, callback?: Function) => {
     .catch(console.error);
 }
 
+export const fetchWholeInfo = (params: any, callback?: Function) => {
+  Api.fetchWholeInfo(params)
+    .then(res => {
+      if (res.code === 0) {
+        callback?.(res?.data)
+      } else {
+        message.error(res?.message);
+      }
+    })
+    .catch(console.error);
+}
+
 export const fetchLogout = () => {
   Api.fetchLogout({})
     .then(res => {

@@ -3,9 +3,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin') // css分离
 const CompressionPlugin = require('compression-webpack-plugin') // gzip压缩
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制文件
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const BuildVersionWebpackPlugin = require('./plugins/BuildVersionWebpackPlugin');
 
 const { merge } = require('webpack-merge')
 const {
+  NAME_SPACE,
+  VERSION,
   common,
   resolveApp,
 } = require('./webpack.common')
@@ -77,5 +80,9 @@ module.exports = merge(common, {
         }
       ]
     }),
+    new BuildVersionWebpackPlugin({
+      name: NAME_SPACE,
+      version: VERSION
+    })
   ]
 })

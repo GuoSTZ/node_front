@@ -6,6 +6,7 @@ const packageJson  = require('../package.json');
 
 const PORT = packageJson.port;
 const NAME_SPACE = packageJson.name;
+const VERSION = packageJson.version;
 
 const resolveApp = relativePath => path.resolve(__dirname, relativePath)
 
@@ -74,6 +75,7 @@ const common = {
 module.exports = {
   PORT,
   NAME_SPACE,
+  VERSION,
   common,
   resolveApp
 }

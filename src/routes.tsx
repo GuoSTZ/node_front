@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import LayoutOutlet from '@/pages/Layout';
 import HomeView from '@/pages/home';
-import LoginView from '@/pages/login';
+import { LoginView, RegisterView } from '@/pages/login';
 import ProfileView from '@/pages/profile';
 import FileView from '@/pages/file';
 import PreviewView from '@/pages/preview';
@@ -54,6 +54,11 @@ const appRoutes = [
     path: 'login',
     name: '登录页',
     element: <LoginView />,
+  },
+  {
+    path: 'register',
+    name: '注册页',
+    element: <RegisterView />
   },
   {
     path: 'dashboard',

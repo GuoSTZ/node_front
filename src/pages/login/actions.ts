@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import * as Api from './api';
-import { encryptionConfigAtom } from './atom';
+import { encryptionConfigAtom, pinCodeAtom } from './atom';
 import { message } from 'antd';
 
 export const useEncryptionConfigAtom = (params: object = {}) => {
@@ -16,6 +16,30 @@ export const useEncryptionConfigAtom = (params: object = {}) => {
       }
     })()
   }, [])
+}
+
+export const usePinCodeAtom = (params: object = {}) => {
+  const [pinCode, setPinCode] = useAtom(pinCodeAtom);
+  const fetchPinCode = () => 
+    Api.fetchPinCode(params)
+      .then(data => {
+        if (data?.code === 0) {
+          const base64data = btoa(unescape(encodeURIComponent(data?.data)));
+          setPinCode(`data:image/svg+xml;base64,${base64data}`)
+        } else {
+          message.error(data?.message)
+        }
+      })
+      
+  useEffect(() => {
+    fetchPinCode();
+  }, [])
+
+  return {
+    pinCode,
+    setPinCode,
+    refresh: fetchPinCode
+  }
 }
 
 export const fetchLogin = (params: any) => {
@@ -43,3 +67,13 @@ export const fetchRegister = (params: any) => {
     })
     .catch(console.error);
 }
+
+// export const fetchPinCode = async (params: any) => {
+//   const data = await Api.fetchPinCode(params);
+//   if (data?.code === 0) {
+//     const base64data = btoa(unescape(encodeURIComponent(data?.data)));
+//     setPinCode(`data:image/svg+xml;base64,${base64data}`)
+//   } else {
+//     message.error(data?.message)
+//   }
+// }

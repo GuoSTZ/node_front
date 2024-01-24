@@ -50,7 +50,10 @@ instance.interceptors.response.use(
   },
   error => {
     // 对响应错误做点什么
-    console.log(`response2 ${error}`)
+    console.log(`response2 ${error}`, error)
+    if(error.code === "ERR_NETWORK") {
+      window.location.href = window.location.origin + `/errorPage/${error.code}.html`
+    }
     return Promise.reject(error);
   }
 );
